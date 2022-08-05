@@ -68,9 +68,16 @@ router.post("/login", async (req, res)=>{
     }
 })
 
-router.get("/currentUser", isAuth(), (req, res)=>{
-res.send(req.user)
-})  
+router.get("/oneUser/:id",async(req,res)=>{
+    try {
+       const oneUser=await User.findOne({_id:req.params.id}) 
+       res.send({oneUser})  
+      } catch (error) {
+          console.log(error)
+          res.status(400).send(error.message)
+     }}
+  )
+
 
 router.get("/allUsers", isAuth(), isAdmin ,async (req, res)=>{
 try {

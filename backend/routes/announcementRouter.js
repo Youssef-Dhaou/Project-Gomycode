@@ -4,6 +4,7 @@ const isAuth = require("../middlewares/isAuth");
 const { deleteOne } = require("../models/Announcement");
 const Announcement = require("../models/Announcement");
 const upload = require("../utils/multer");
+const User = require("../models/User")
 
 
 const router = express.Router()
@@ -129,6 +130,55 @@ router.put('/unlike/:id',isAuth(),async(req,res)=>{
         console.log(error.message)  
         res.status(400).send("serveur error")
         
+    }
+})
+
+router.post("/comment/:id",isAuth(), async(req, res)=>{
+    try {
+        const user = await User.findById(req.user._id)
+        const Announce = await Announcement.findById(req.params.id)
+
+        const newComment = {
+            text: req.body.text,  
+            name: user.fullName,  
+            user: req.user._id,
+            image: user.image
+        }
+
+        Announce.comments.unshift(newComment); 
+        await Announce.save();  
+        res.send(Announce.comments);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send(error.message); 
+    }
+    
+})
+
+router.delete("/comment/:id/:comment_id", isAuth(), async(req, res)=>{
+    try {
+        const announce = await Announcement.findById(req.params.id)
+        const comment = announce.comments.find(comment => {
+            return comment._id.toString() === req.params.comment_id;
+        })
+        
+            if(!comment){
+                return res.status(400).send({msg:"comment does not exist"})
+            }
+
+            if(comment.user.toString() !== req.user._id.toString()){
+return res.status(400).send({msg: "not authorized"})
+            }
+const removeIndex = announce.comments.map(comment => comment.user.toString()).indexOf(req.user._id)
+announce.comments.splice(removeIndex+1, 1);   
+
+    await announce.save();
+    res.send(announce.comments);
+      
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send('Server Error');
     }
 })
 

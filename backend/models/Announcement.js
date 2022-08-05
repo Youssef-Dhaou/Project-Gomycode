@@ -16,6 +16,17 @@ const AnnouncementSchema = new mongoose.Schema({
           ref: "user",
         },}
       ],
+
+      comments: [ {
+        user:{
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "user",
+        },
+        text:{type: String, required:true},
+        name:{type:String},
+        image:{type:String},
+        date:{type:Date, default: Date.now()}
+      }],
 }) 
 
 

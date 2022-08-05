@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { addAnnounce } from '../../Redux/actions/AnnouncementActions'
 
 const AddAnnounce = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch()  
     const navigate = useNavigate()
 
     const [image, setImage] = useState("")

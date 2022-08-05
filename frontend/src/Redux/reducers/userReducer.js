@@ -1,7 +1,8 @@
-import { GET_CURRENT_USER_FAIL, GET_CURRENT_USER_SUCCESS, SIGNIN_USER_FAIL, SIGNIN_USER_SUCCESS, SIGNUP_USER_FAIL, SIGNUP_USER_SUCCESS, UPDATE_ONE_USER_FAIL } from "../contants/userTypes"
+import { GET_CURRENT_USER_FAIL, GET_CURRENT_USER_SUCCESS, GET_ONE_USER_FAIL, GET_ONE_USER_SUCCESS, SIGNIN_USER_FAIL, SIGNIN_USER_SUCCESS, SIGNUP_USER_FAIL, SIGNUP_USER_SUCCESS, UPDATE_ONE_USER_FAIL } from "../contants/userTypes"
 const initialState={
 errors :null,
-currentUser: {}
+currentUser: {},
+oneUser:{}
 }
 
 export const userReducer = (state= initialState, {type, payload})=>{
@@ -24,6 +25,10 @@ case GET_CURRENT_USER_FAIL: return {...state, errors: payload}
 
 //upadteUser
 case UPDATE_ONE_USER_FAIL:  return {...state, errors: payload}
+//get oneUser
+case GET_ONE_USER_SUCCESS: return {...state, oneUser: payload}
+case GET_ONE_USER_FAIL: return {...state, errors: payload}
+
     default: return state;
 
 }

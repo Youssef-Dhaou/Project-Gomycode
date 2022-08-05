@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_CURRENT_USER_FAIL, GET_CURRENT_USER_SUCCESS, SIGNIN_USER_FAIL, SIGNIN_USER_SUCCESS, SIGNUP_USER_FAIL, SIGNUP_USER_SUCCESS, UPDATE_ONE_USER_FAIL, UPDATE_ONE_USER_SUCCESS } from "../contants/userTypes";
+import { GET_CURRENT_USER_FAIL, GET_CURRENT_USER_SUCCESS, GET_ONE_USER_FAIL, GET_ONE_USER_SUCCESS, SIGNIN_USER_FAIL, SIGNIN_USER_SUCCESS, SIGNUP_USER_FAIL, SIGNUP_USER_SUCCESS, UPDATE_ONE_USER_FAIL, UPDATE_ONE_USER_SUCCESS } from "../contants/userTypes";
 
 
 export const signupUser =  (user, navigate) => async (dispatch) =>{
@@ -53,5 +53,17 @@ export const signinUser = (user, navigate) => async (dispatch) => {
         } catch (error) {
           console.log(error);
           dispatch({type:UPDATE_ONE_USER_FAIL,payload:error})
+        }
+      };
+
+      export const getOneUser=(id) => async (dispatch) => {
+        try {
+          const response = await axios.get(
+            `http://localhost:5000/users/oneUser/${id}`
+          );
+          dispatch({type:GET_ONE_USER_SUCCESS,payload:response.data.oneUser})
+        } catch (error) {
+          console.log(error);
+          dispatch({type:GET_ONE_USER_FAIL,payload:error})
         }
       };

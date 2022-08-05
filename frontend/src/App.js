@@ -15,6 +15,7 @@ import { getAllAnnounces } from './Redux/actions/AnnouncementActions';
 import AnnounceList from './components/AnnounceList/AnnounceList';
 import AddAnnounce from './components/addAnnounce/AddAnnounce';
 import EditAnnounce from './components/EditAnnounce/EditAnnounce';
+import Details from './components/AnnounceDetails/Details';
 
 
 function App() {
@@ -42,6 +43,7 @@ dispatch(getCurrentUser())
         <Route path='/announcelist' element={<div> <Header/> <AnnounceList/> </div> }/>
         <Route path='/addannounce' element={<AddAnnounce/>}/>
         <Route path='/editannounce/:id' element={<EditAnnounce/>}/>
+        <Route path='/details/:id' element={<Details/>}/>
         <Route path='/contact' element={<Contact/>}/>
 
       </Routes>

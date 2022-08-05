@@ -1,4 +1,4 @@
-import { ADD_ANNOUNCE_FAIL, DELETE_ANNOUNCE_FAIL, GET_ANNOUNCE_FAIL, GET_ANNOUNCE_LOADING, GET_ANNOUNCE_SUCCESS, GET_ONE_ANNOUNCE_FAIL, GET_ONE_ANNOUNCE_SUCCESS, POST_ERROR, UNLIKE_ANNOUNCE_FAIL, UNLIKE_ANNOUNCE_SUCCESS, UPDATE_LIKES, UPDATE_ONE_ANNOUNCE_FAIL } from "../contants/AnnounecementTypes";
+import { ADD_ANNOUNCE_FAIL, ADD_COMMENT, DELETE_ANNOUNCE_FAIL, GET_ANNOUNCE_FAIL, GET_ANNOUNCE_LOADING, GET_ANNOUNCE_SUCCESS, GET_ONE_ANNOUNCE_FAIL, GET_ONE_ANNOUNCE_SUCCESS, POST_ERROR, REMOVE_COMMENT, UPDATE_LIKES, UPDATE_ONE_ANNOUNCE_FAIL} from "../contants/AnnounecementTypes";
 
 const initialState={
     loading: false,
@@ -29,8 +29,20 @@ const initialState={
              case DELETE_ANNOUNCE_FAIL: return {...state, errors: payload}
             
     //like and unlike announcement
-    case UPDATE_LIKES:return{...state,oneAnnounce: state.oneAnnounce.map(el=>el._id==payload.id?{...el, likes:payload.likes}: el)}
+    case UPDATE_LIKES:return{...state,Announces: state.Announces.map(el=>el._id==payload.id?{...el, likes:payload.likes}: el)}
     case POST_ERROR: return {...state, errors: payload}
+//ad comment case
+case ADD_COMMENT: return{...state.Announces, comments:payload} 
+case REMOVE_COMMENT:
+    return {
+      ...state,
+      oneAnnounce: {
+        ...state.oneAnnounce,
+        comments: state.oneAnnounce.comments.filter(
+          comment => comment._id !== payload
+        )
+    }};
+
 
 
     default: return state;

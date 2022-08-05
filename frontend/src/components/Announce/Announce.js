@@ -2,10 +2,9 @@ import React from 'react'
 import "./Announce.css"
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addLikes, removeLikes } from '../../Redux/actions/AnnouncementActions';
+import { addLikes, deleteAnnounce, removeLikes } from '../../Redux/actions/AnnouncementActions';
 const Announce = ({el}) => {
   const dispatch = useDispatch()
-const likes = useSelector(state=>state.AnnounceReducer)
   return (
 
     <div className="boxProduct">
@@ -33,15 +32,15 @@ const likes = useSelector(state=>state.AnnounceReducer)
 
 <div className='btnIcon'>
   <div className='actions'> 
-     <i id="iconB" className="fa-solid fa-trash-can  trash"></i>
+     <i id="iconB" className="fa-solid fa-trash-can trash" onClick={()=>dispatch(deleteAnnounce(el._id))}></i>
  <Link to={`/editannounce/${el._id}`}><i id="iconB" className="fa-solid fa-pen-to-square"></i></Link>
  <Link to ={`/addannounce`}> <i id="iconB" className="fa-solid fa-circle-plus"></i></Link>
  </div>
  <div className='reaction'>
-<i  id="iconB" className="fa-solid fa-comment"></i>
-<i  id="iconB"  className="fa-solid fa-thumbs-up"  onClick={dispatch(addLikes(el._id))}></i>
-<i  id="iconB"  className="fa-solid fa-thumbs-down" onClick={dispatch(removeLikes(el._id))}></i>
-<span>{el.likes.length > 0 && <span>{el.likes.length}</span>}</span>
+<Link to={`/details/${el._id}`}> <i  id="iconB" className="fa-solid fa-comment"></i></Link>
+<i  id="iconB"  className="fa-solid fa-thumbs-up"  onClick={()=>dispatch(addLikes(el._id))}></i>
+<i  id="iconB"  className="fa-solid fa-thumbs-down" onClick={()=>dispatch(removeLikes(el._id))}></i>
+<span style={{fontSize:"20px"}}>{el.likes.length > 0 && <span>{el.likes.length}</span>}</span>
 </div>
 </div> 
 </div>   
