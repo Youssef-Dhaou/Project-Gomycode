@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {LinkContainer} from "react-router-bootstrap"
 import logo from "../../assets/logo.png"
-import { FcPrivacy, FcUnlock} from "react-icons/fc";
+import { FcPanorama, FcPhotoReel, FcPrivacy, FcUnlock} from "react-icons/fc";
 
 
 const  Navigation= ()=> {
@@ -29,6 +29,11 @@ const  Navigation= ()=> {
             <LinkContainer to ="/signup"> 
             <Nav.Link ><FcPrivacy /> <span> Register </span></Nav.Link>  
             </LinkContainer>
+
+            <LinkContainer to ="/announcelist"> 
+            <Nav.Link ><FcPhotoReel /> <span> Announcements </span></Nav.Link>  
+            </LinkContainer>
+
 
           </Nav>
         </Navbar.Collapse>

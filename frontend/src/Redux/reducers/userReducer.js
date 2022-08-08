@@ -1,8 +1,9 @@
-import { GET_CURRENT_USER_FAIL, GET_CURRENT_USER_SUCCESS, GET_ONE_USER_FAIL, GET_ONE_USER_SUCCESS, SIGNIN_USER_FAIL, SIGNIN_USER_SUCCESS, SIGNUP_USER_FAIL, SIGNUP_USER_SUCCESS, UPDATE_ONE_USER_FAIL } from "../contants/userTypes"
+import { GET_CURRENT_USER_FAIL, GET_CURRENT_USER_SUCCESS, GET_ONE_USER_FAIL, GET_ONE_USER_SUCCESS, GET_USERS_FAIL, GET_USERS_LOADING, GET_USERS_SUCCESS, LOGOUT, SIGNIN_USER_FAIL, SIGNIN_USER_SUCCESS, SIGNUP_USER_FAIL, SIGNUP_USER_SUCCESS, UPDATE_ONE_USER_FAIL } from "../contants/userTypes"
 const initialState={
 errors :null,
 currentUser: {},
-oneUser:{}
+oneUser:{},
+AllUsers:[]
 }
 
 export const userReducer = (state= initialState, {type, payload})=>{
@@ -27,7 +28,23 @@ case GET_CURRENT_USER_FAIL: return {...state, errors: payload}
 case UPDATE_ONE_USER_FAIL:  return {...state, errors: payload}
 //get oneUser
 case GET_ONE_USER_SUCCESS: return {...state, oneUser: payload}
-case GET_ONE_USER_FAIL: return {...state, errors: payload}
+
+
+
+ //get all Users
+ case GET_USERS_LOADING: return{...state, loading: true }
+ case GET_USERS_SUCCESS: return{...state,AllUsers:payload , loading: false }
+ case GET_USERS_FAIL: return{...state, errors:payload , loading: false }
+
+
+//logout case
+case LOGOUT:
+  localStorage.removeItem("token");
+  return {
+    loading: false,
+    currentUser: {},
+    errors: null,
+  };
 
     default: return state;
 

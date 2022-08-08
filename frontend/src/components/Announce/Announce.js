@@ -1,10 +1,13 @@
-import React from 'react'
+
 import "./Announce.css"
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addLikes, deleteAnnounce, removeLikes } from '../../Redux/actions/AnnouncementActions';
-const Announce = ({el}) => {
+const Announce = ({el, setQuery}) => {
   const dispatch = useDispatch()
+
+
+
   return (
 
     <div className="boxProduct">
@@ -22,7 +25,7 @@ const Announce = ({el}) => {
       {el.address}
       </p>
       <div className="user">
-        <img src="https://yt3.ggpht.com/a/AGF-l7-0J1G0Ue0mcZMw-99kMeVuBmRxiPjyvIYONg=s900-c-k-c0xffffffff-no-rj-mo" alt="user" />
+        <img src={el.user.image} alt="user" />
         <div className="user-info">
           <h5>{el.user.fullName}</h5>
           <small>{el.createdOn.slice(0,10)}</small>
@@ -30,6 +33,7 @@ const Announce = ({el}) => {
       </div>
     </div>
 
+{localStorage.getItem("token")&&
 <div className='btnIcon'>
   <div className='actions'> 
      <i id="iconB" className="fa-solid fa-trash-can trash" onClick={()=>dispatch(deleteAnnounce(el._id))}></i>
@@ -37,12 +41,18 @@ const Announce = ({el}) => {
  <Link to ={`/addannounce`}> <i id="iconB" className="fa-solid fa-circle-plus"></i></Link>
  </div>
  <div className='reaction'>
+  <div style={{display:"flex",gap:10}}> 
 <Link to={`/details/${el._id}`}> <i  id="iconB" className="fa-solid fa-comment"></i></Link>
-<i  id="iconB"  className="fa-solid fa-thumbs-up"  onClick={()=>dispatch(addLikes(el._id))}></i>
-<i  id="iconB"  className="fa-solid fa-thumbs-down" onClick={()=>dispatch(removeLikes(el._id))}></i>
-<span style={{fontSize:"20px"}}>{el.likes.length > 0 && <span>{el.likes.length}</span>}</span>
+<span className='comment-count'>{el.comments.length}</span>
 </div>
+<div style={{display:"flex",gap:10}}>
+<i  id="iconB"  className="fa-solid fa-thumbs-up"  onClick={()=>dispatch(addLikes(el._id))}></i>
+<span>{el.likes.length > 0 && <span>{el.likes.length}</span>}</span>
 </div> 
+<i  id="iconB"  className="fa-solid fa-thumbs-down" onClick={()=>dispatch(removeLikes(el._id))}></i>
+
+</div>
+</div>} 
 </div>   
 </div>
 

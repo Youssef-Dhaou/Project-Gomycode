@@ -20,3 +20,12 @@ export const UPDATE_ONE_USER_SUCCESS = "UPDATE_ONE_USER_SUCCESS ";
 //get current User
 export const GET_ONE_USER_FAIL = "GET_ONE_USER_FAIL";
 export const GET_ONE_USER_SUCCESS = "GET_ONE_USER_SUCCESS";
+
+//get all announcements types
+export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS"
+export const GET_USERS_FAIL = "GET_USERS_FAIL"
+export const GET_USERS_LOADING = "GET_USERS_LOADING"
+
+
+//logout:
+export const LOGOUT = "LOGOUT";

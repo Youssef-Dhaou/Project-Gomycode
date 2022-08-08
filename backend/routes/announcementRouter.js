@@ -33,9 +33,8 @@ router.post("/addAnnouncement",isAuth(), upload("announcement").single("file") ,
 
 router.get("/", async (req, res)=>{
     try {
-        const {status, _id} = req.query 
-        const allAnnounce = await Announcement.find({$or:[{status},{_id}]}).populate("user","fullName")
-         console.log(status, _id)
+     
+        const allAnnounce = await Announcement.find().populate("user")
         res.send(allAnnounce)
     } catch (error) {
         console.log(error)
@@ -43,10 +42,10 @@ router.get("/", async (req, res)=>{
     }
 })
 
+
 router.delete("/:id", async(req, res)=>{
     try {
         const announceDeleted = await Announcement.deleteOne({_id : req.params.id})
-        console.log()
         if(announceDeleted.deletedCount){return res.send("Announce deleted")} 
         res.status(400).send({msg: "Already deleted"})
 

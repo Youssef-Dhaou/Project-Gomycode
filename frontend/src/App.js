@@ -16,6 +16,10 @@ import AnnounceList from './components/AnnounceList/AnnounceList';
 import AddAnnounce from './components/addAnnounce/AddAnnounce';
 import EditAnnounce from './components/EditAnnounce/EditAnnounce';
 import Details from './components/AnnounceDetails/Details';
+import PrivateRoute from './components/Privates/PrivateRoute';
+import UserList from './components/userList/UserList';
+import Spinner from './components/alerts/Spinner';
+
 
 
 function App() {
@@ -33,18 +37,20 @@ dispatch(getCurrentUser())
 
       
       <Routes>
-      <Route path='/' element={ <div> <Navigation/> <About/></div>}/>
+      <Route path='/' element={ <div> <Navigation/> <About/> </div>}/>
       <Route path='/signin' element={<div> <Navigation/>  <SignIn/></div>}/>
       <Route path='/signup' element={<div> <Navigation/>  <SignUp/></div>}/>
    
         <Route path='/home' element={<Header/>}/>
-        <Route path='/profile' element={<div> <Header/> <Profile/> </div>}/>
+        <Route path='/profile' element={<div> <Header/> <PrivateRoute> <Profile/> </PrivateRoute> </div>}/>
         <Route path='/editprofile' element={<EditProfile/> }/>
         <Route path='/announcelist' element={<div> <Header/> <AnnounceList/> </div> }/>
         <Route path='/addannounce' element={<AddAnnounce/>}/>
         <Route path='/editannounce/:id' element={<EditAnnounce/>}/>
         <Route path='/details/:id' element={<Details/>}/>
         <Route path='/contact' element={<Contact/>}/>
+        <Route path='/spinner' element={<Spinner/>}/>
+        <Route path='/userlist' element={<div> <Header/> <UserList/> </div> }/>
 
       </Routes>
 </div>

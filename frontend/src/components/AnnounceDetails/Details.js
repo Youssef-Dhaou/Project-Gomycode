@@ -5,6 +5,7 @@ import "./Details.css"
 import {addComment, deleteComment, getOneAnnounce} from "../../Redux/actions/AnnouncementActions"
 import {  getOneUser } from '../../Redux/actions/userActions';
 import {FaFileExport, FaPeriscope, FaPhoneAlt } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const Details = () => {
 
@@ -31,8 +32,8 @@ const Details = () => {
     useEffect(() => {
         dispatch(getOneAnnounce(id));
         handlUser()
-        oneAnnounce && loading && dispatch(getOneUser(oneAnnounce.user))
-      }, [oneAnnounce]);
+     loading && dispatch(getOneUser(oneAnnounce.user))
+      }, [oneAnnounce.user]);
 
 
 
@@ -45,7 +46,7 @@ const Details = () => {
 <div className="wrapper" style={{display:"flex", flexDirection:"column"}}>
     <div>
   <div className="product-img">
-    <img src={oneAnnounce && oneAnnounce.image} height={400} width={327} alt=""/>
+    <img src={oneAnnounce.image} height={400} width={327} alt=""/>
   </div>
   <div className="product-info">
     <div className="product-text">
@@ -53,13 +54,13 @@ const Details = () => {
     <img style={{borderRadius: "50%"}} src={oneUser.image} height={60} width={60} alt=""/>
       <span > <h1 style={{fontSize:"20px"}}>{oneUser.fullName}</h1></span> 
     </div>
-    <h2>{oneAnnounce && oneAnnounce.object}</h2>
+    <h2>{oneAnnounce.object}</h2>
     <div className='devision'>
-      <p>{oneAnnounce && oneAnnounce.description}</p>
+      <p>{oneAnnounce.description}</p>
       <span className='iconDesc'> <FaFileExport/> </span>
-      <p>{oneAnnounce && oneAnnounce.address}</p>
+      <p>{oneAnnounce.address}</p>
       <span className='iconAdd'> <FaPeriscope/> </span>
-      <p>{oneAnnounce && oneAnnounce.phone}</p>
+      <p>{oneAnnounce.phone}</p>
       <span className='iconPh'> <FaPhoneAlt/> </span>
       </div> 
     </div>
@@ -80,9 +81,9 @@ const Details = () => {
   <div className="d-flex justify-content-center row">
     <div className="col-md-8">
       <div className="d-flex flex-column comment-section">
-{ oneAnnounce &&  oneAnnounce.comments.map((el)=>
+{oneAnnounce.comments.map((el,i)=>
 
-        <div className='boxBorder'> 
+        <div key={i} className='boxBorder'> 
         <div className="bg-white p-2">
           <div className="d-flex flex-row user-info"><img className="round" src={el.image} width={40} alt=""/>
             <div className="d-flex flex-column justify-content-start ml-2"><span className="d-block font-weight-bold name">{el.name}</span><span className="date text-black-50">Shared publicly - {el.date}</span></div>
@@ -101,7 +102,7 @@ const Details = () => {
         <div className="bg-light p-2">
           <form onSubmit={handleComment}>
           <div className="d-flex flex-row align-items-start"><img className="round" src={currentUser.image} width={40} alt=""/><textarea name="text" className="form-control ml-1 shadow-none textarea" defaultValue={""} onChange={(e)=>setText(e.target.value)}/></div>
-          <div className="mt-2 text-right"><button className="btn btn-primary btn-sm shadow-none" type="submit" >Post comment</button><button className="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+          <div className="mt-2 text-right"><button className="btn btn-primary btn-sm shadow-none" type="submit" >Post comment</button> <Link to="/announcelist"> <button className="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></Link></div>
           </form> 
         </div>
       </div>

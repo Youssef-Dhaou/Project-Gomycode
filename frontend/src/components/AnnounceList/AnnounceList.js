@@ -1,23 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AnnounceList.css";
 
 import { useSelector } from "react-redux";
 import Announce from "../Announce/Announce";
 import Search from "../searchAnnounce/Search";
+import Footer from "../footer/Footer";
+import Spinner from "../alerts/Spinner";
+
 
 const AnnounceList = () => {
   const Announces = useSelector((state) => state.AnnounceReducer.Announces);
+
+  const loading = useSelector((state) => state.AnnounceReducer.loading);
+
+
+  const [objectUp, setObjectUp] = useState("")
+
+
+  const handleSubmit=(x)=>{
+    setObjectUp(x)
+  }
+
   return (
-    <div>
+    <> 
+    {loading? <Spinner/>:  
+   <div>
+   
       <div>
-        <Search />
+        
+        <Search handleSubmit={handleSubmit}/>
       </div>
       <div className="list">
-        {Announces.map((el) => (
+        {Announces.filter(annonce=> annonce.object.toLowerCase().match(objectUp.toLowerCase().trim()) ||
+            annonce.user.fullName.toLowerCase().includes(objectUp.toLowerCase())).map((el) => (
           <Announce key={el._id} el={el} />
         ))}
       </div>
-    </div>
+      <Footer className="footer-Page"/> 
+    </div>}
+    </> 
   );
 };
 

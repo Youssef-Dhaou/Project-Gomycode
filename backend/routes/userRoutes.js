@@ -8,6 +8,7 @@ const isAdmin = require("../middlewares/isAdmin");
 const { registerRules, validator } = require("../middlewares/validator");
 const isVolunteer = require("../middlewares/isVolunteer");
 const upload = require("../utils/multer");
+const Announcement = require("../models/Announcement");
 const router = express.Router()
 
 
@@ -89,23 +90,27 @@ try {
     
     })  
 
+    router.delete("/:id", async(req, res)=>{
+        try {
+            const userDeleted = await User.deleteOne({_id : req.params.id})
+            const announceDeleted = await Announcement.deleteMany({user : req.params.id})
+            if(userDeleted.deletedCount){return res.send("User deleted")} 
+            res.status(400).send({msg: "Already deleted"})
+    
+        } catch (error) {
+            console.log(error)
+            res.status(400).send(error.message)
+    
+        }
+    })
+
 
     router.get("/currentUser",isAuth(), async(req, res)=>{
    res.send(req.user)
     })
 
-    router.get("/allUsers",isAuth(), isAdmin, async(req, res)=>{
-        try {
-            const users = await User.find({})
-            res.send(users)
-        } catch (error) {
-            res.status(400).send(error.message)
-        }
-    })
-
     router.put("/editUser",isAuth(), upload("user").single("file") , async (req, res)=>{
     const {_id, password, passwordConfirmation} = req.user
-    console.log(req.user)
 
      const url = `${req.protocol}://${req.get('host')}`;
     console.log(req.file);

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_CURRENT_USER_FAIL, GET_CURRENT_USER_SUCCESS, GET_ONE_USER_FAIL, GET_ONE_USER_SUCCESS, SIGNIN_USER_FAIL, SIGNIN_USER_SUCCESS, SIGNUP_USER_FAIL, SIGNUP_USER_SUCCESS, UPDATE_ONE_USER_FAIL, UPDATE_ONE_USER_SUCCESS } from "../contants/userTypes";
+import { GET_CURRENT_USER_FAIL, GET_CURRENT_USER_SUCCESS, GET_ONE_USER_FAIL, GET_ONE_USER_SUCCESS, GET_USERS_FAIL, GET_USERS_LOADING, GET_USERS_SUCCESS, LOGOUT, SIGNIN_USER_FAIL, SIGNIN_USER_SUCCESS, SIGNUP_USER_FAIL, SIGNUP_USER_SUCCESS, UPDATE_ONE_USER_FAIL, UPDATE_ONE_USER_SUCCESS } from "../contants/userTypes";
 
 
 export const signupUser =  (user, navigate) => async (dispatch) =>{
@@ -67,3 +67,21 @@ export const signinUser = (user, navigate) => async (dispatch) => {
           dispatch({type:GET_ONE_USER_FAIL,payload:error})
         }
       };
+      export const logoutUser = (navigate) => {
+        navigate("/signin");
+        return { type: LOGOUT };
+      };
+
+
+      export const getAllUsers = ()=> async dispatch=>{
+        const token = localStorage.getItem("token")
+        dispatch({type:GET_USERS_LOADING})
+        try {
+            const response=await axios.get("http://localhost:5000/users/allUsers/",{headers:{Authorization:`Bearer ${token}`}})
+            dispatch({type: GET_USERS_SUCCESS, payload:response.data})
+        } catch (error) {
+            console.log(error)
+            dispatch({type: GET_USERS_FAIL, payload: error})
+        }
+    
+    }

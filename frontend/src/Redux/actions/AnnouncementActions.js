@@ -2,10 +2,10 @@ import axios from "axios"
 import {ADD_ANNOUNCE_FAIL, ADD_ANNOUNCE_SUCCESS, ADD_COMMENT, DELETE_ANNOUNCE_FAIL, DELETE_ANNOUNCE_SUCCESS, GET_ANNOUNCE_FAIL, GET_ANNOUNCE_LOADING, GET_ANNOUNCE_SUCCESS, GET_ONE_ANNOUNCE_FAIL, GET_ONE_ANNOUNCE_SUCCESS, LIKE_ANNOUNCE_FAIL, LIKE_ANNOUNCE_SUCCESS, POST_ERROR, REMOVE_COMMENT, UNLIKE_ANNOUNCE_FAIL, UNLIKE_ANNOUNCE_SUCCESS, UPDATE_LIKES, UPDATE_ONE_ANNOUNCE_FAIL, UPDATE_ONE_ANNOUNCE_SUCCESS} from "../contants/AnnounecementTypes"
 
 
-export const getAllAnnounces = ()=> async dispatch=>{
+export const getAllAnnounces = (query)=> async dispatch=>{
     dispatch({type:GET_ANNOUNCE_LOADING})
     try {
-        const response=await axios.get('http://localhost:5000/announcements/')
+        const response=await axios.get(`http://localhost:5000/announcements/?${query}`)
         dispatch({type: GET_ANNOUNCE_SUCCESS, payload:response.data})
     } catch (error) {
         console.log(error)
@@ -110,7 +110,7 @@ dispatch({type:ADD_COMMENT, payload:response.data })
 
 
 // Delete comment
-export const deleteComment = (AnnounceId, commentId) => async dispatch => {
+export const deleteComment = (AnnounceId, commentId) => async dispatch => {  
   const token = localStorage.getItem("token")
   try {
     await axios.delete(`http://localhost:5000/announcements/comment/${AnnounceId}/${commentId}`, { headers: { Authorization: `Bearer ${token}`} });

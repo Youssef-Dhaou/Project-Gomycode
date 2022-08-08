@@ -2,10 +2,12 @@ import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import { FcApproval, FcGlobe } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import Footer from "../components/footer/Footer";
 import "./About.css";
 
 function About () {
     return (
+        <div className="divion-row"> 
         <Row>
             <Col md={6} className="d-flex flex-direction-column align-items-center justify-content-center">
                 <div>
@@ -18,7 +20,9 @@ function About () {
                 </div>
             </Col>
             <Col md={6} className="home__bg"></Col>
+           
         </Row>
+        </div>
     );
 }
 
