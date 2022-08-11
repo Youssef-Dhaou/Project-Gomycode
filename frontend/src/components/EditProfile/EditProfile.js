@@ -119,7 +119,7 @@ const user = useSelector(state=>state.userReducer.currentUser)
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <div className="text-right">
                <Link to='/profile'> <button type="button" id="submit" name="submit" className="btn btn-secondary mt-3 mb-2">Cancel</button></Link>
-                <button type="button" id="submit" name="submit" className="btn btn-primary mt-2 mb-2" onClick={handleUpdate}>Update</button>
+                <button type="button" id="submit" name="submit" className="btn btn-primary mt-2 mx-2" onClick={handleUpdate}>Update</button>
               </div>
             </div>
           </div> 

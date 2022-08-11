@@ -27,5 +27,14 @@ export const GET_USERS_FAIL = "GET_USERS_FAIL"
 export const GET_USERS_LOADING = "GET_USERS_LOADING"
 
 
+//delete User
+export const DELETE_USER_FAIL = "DELETE_USER_FAIL";
+export const DELETE_USER_SUCCESS = "DELETE_USER_SUCCESS";
+
+
+//Banned User
+export const BANNED_USER_FAIL = "BANNED_USER_FAIL";
+export const BANNED_USER_SUCCESS = "BANNED_USER_SUCCESS";
+
 //logout:
 export const LOGOUT = "LOGOUT";

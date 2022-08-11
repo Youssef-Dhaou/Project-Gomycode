@@ -100,8 +100,10 @@ export const addLikes = (id)=> async dispatch=>{
 export const addComment = (id, text)=>async dispatch=>{
   const token = localStorage.getItem("token")
 try {
-  const response = await axios.post(`http://localhost:5000/announcements/comment/${id}`,text,{ headers: { Authorization: `Bearer ${token}` } });
-dispatch({type:ADD_COMMENT, payload:response.data })
+  console.log(text);
+ const response = await axios.post(`http://localhost:5000/announcements/comment/${id}`,text,{ headers: { Authorization: `Bearer ${token}` } });
+ console.log(response);
+ dispatch({type:ADD_COMMENT, payload:{id, comments: response.data }})
 } catch (error) {
   console.log(error.message)
   dispatch({type: POST_ERROR, payload:error})

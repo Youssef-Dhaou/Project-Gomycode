@@ -80,7 +80,7 @@ router.put("/:id", upload("announcement").single("file"), async (req, res)=>{
 
 router.get("/oneAnnounce/:id",async(req,res)=>{
     try {
-       const oneAnnounce=await Announcement.findOne({_id:req.params.id}) 
+       const oneAnnounce=await Announcement.findOne({_id:req.params.id}).populate("user",["fullName", "image"]) 
        res.send({oneAnnounce})  
       } catch (error) {
           console.log(error)
@@ -136,7 +136,7 @@ router.post("/comment/:id",isAuth(), async(req, res)=>{
     try {
         const user = await User.findById(req.user._id)
         const Announce = await Announcement.findById(req.params.id)
-
+     console.log(req.body.text);
         const newComment = {
             text: req.body.text,  
             name: user.fullName,  

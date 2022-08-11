@@ -55,6 +55,7 @@ router.post("/login", async (req, res)=>{
     try {
         const existedUser = await User.findOne({email})
         if(!existedUser){ return res.status(400).send({msg:"Please Add Email or Password"})}
+        if(existedUser.isBanned) {return res.status(400).send({msg: "your account has been blocked"})}
 
       const passwordMatched = await bcrypt.compare(password, existedUser.password)
       if(!passwordMatched){ return res.status(400).send({msg: "Invalid email or password"})}
@@ -69,9 +70,10 @@ router.post("/login", async (req, res)=>{
     }
 })
 
-router.get("/oneUser/:id",async(req,res)=>{
+router.get("/oneUser",async(req,res)=>{
+    const {email}= req.query
     try {
-       const oneUser=await User.findOne({_id:req.params.id}) 
+       const oneUser=await User.findOne({email}) 
        res.send({oneUser})  
       } catch (error) {
           console.log(error)
@@ -129,5 +131,22 @@ try {
             
         }
     })
+
+
+
+    router.put("/bannedUser/:id",isAuth(),isAdmin, async (req, res)=>{
+        
+    
+            try {
+                const result = await User.updateOne({_id: req.params.id}, {$set:{...req.body}});
+                const UpdatedUser = await User.findOne({_id:req.params.id});
+                return res.send({msg: "User upadated", UpdatedUser})
+            } catch (error) {
+        
+                console.log(error)
+                res.status(400).send(error.message)
+                
+            }
+        })
 
 module.exports= router

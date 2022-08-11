@@ -35,7 +35,7 @@ const navigate = useNavigate()
         <Link to= "/contact" style={{textDecoration:"none"}}> <SidebarItem Icon={FaAddressBook} Text="Contact" /></Link>
        {localStorage.getItem("token") && currentUser.role==="admin" && <Link to= "/userlist" style={{textDecoration:"none"}}> <SidebarItem Icon={FaAddressBook} Text="Accounts" /></Link>}
        {!localStorage.getItem("token")&& <Link to="/signin" style={{textDecoration:"none"}}> <SidebarItem Icon={FaSlidersH} Text="Login" /></Link>}
-       <button style={{ backgroundColor: "#171923"}} onClick={()=>dispatch(logoutUser(navigate))} ><SidebarItem Icon={FaPowerOff} Text="Logout"/></button> 
+      {localStorage.getItem("token")&&<button style={{ backgroundColor: "#171923"}} onClick={()=>dispatch(logoutUser(navigate))} ><SidebarItem Icon={FaPowerOff} Text="Logout"/></button> }
       </Content>
     </Container>
   )

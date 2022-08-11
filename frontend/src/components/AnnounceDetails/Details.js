@@ -21,22 +21,22 @@ const Details = () => {
    }
 
     const oneAnnounce=useSelector(state=>state.AnnounceReducer.oneAnnounce)
-    const oneUser=useSelector(state=>state.userReducer.oneUser)
     const currentUser=useSelector(state=>state.userReducer.currentUser)
-    const [loading, setLoading] = useState(false)
+  
 
-    const handlUser= ()=>{
-      oneAnnounce && setLoading(true)
-    }    
+  
 
     useEffect(() => {
         dispatch(getOneAnnounce(id));
-        handlUser()
-     loading && dispatch(getOneUser(oneAnnounce.user))
-      }, [oneAnnounce.user]);
+     //loading && dispatch(getOneUser(oneAnnounce.user))
+      }, []);
 
+/*
+      useEffect(() => {
+        loading && dispatch(getOneUser(oneAnnounce.user))
+      }, [oneAnnounce]);
 
-
+*/
  const [showResults, setShowResults] = React.useState(false)
  const onClick = () => setShowResults(!showResults)
 
@@ -46,21 +46,21 @@ const Details = () => {
 <div className="wrapper" style={{display:"flex", flexDirection:"column"}}>
     <div>
   <div className="product-img">
-    <img src={oneAnnounce.image} height={400} width={327} alt=""/>
+    <img src={oneAnnounce&&oneAnnounce.image} height={400} width={327} alt=""/>
   </div>
   <div className="product-info">
     <div className="product-text">
     <div className='imgUser'>
-    <img style={{borderRadius: "50%"}} src={oneUser.image} height={60} width={60} alt=""/>
-      <span > <h1 style={{fontSize:"20px"}}>{oneUser.fullName}</h1></span> 
+    <img style={{borderRadius: "50%"}} src={oneAnnounce&&oneAnnounce.user&&oneAnnounce.user.image} height={60} width={60} alt=""/>
+      <span > <h1 style={{fontSize:"20px"}}>{oneAnnounce&&oneAnnounce.user&&oneAnnounce.user.fullName}</h1></span> 
     </div>
-    <h2>{oneAnnounce.object}</h2>
+    <h2>{oneAnnounce&&oneAnnounce.object}</h2>
     <div className='devision'>
-      <p>{oneAnnounce.description}</p>
+      <p>{oneAnnounce&&oneAnnounce.description}</p>
       <span className='iconDesc'> <FaFileExport/> </span>
-      <p>{oneAnnounce.address}</p>
+      <p>{oneAnnounce&&oneAnnounce.address}</p>
       <span className='iconAdd'> <FaPeriscope/> </span>
-      <p>{oneAnnounce.phone}</p>
+      <p>{oneAnnounce&&oneAnnounce.phone}</p>
       <span className='iconPh'> <FaPhoneAlt/> </span>
       </div> 
     </div>
@@ -81,7 +81,7 @@ const Details = () => {
   <div className="d-flex justify-content-center row">
     <div className="col-md-8">
       <div className="d-flex flex-column comment-section">
-{oneAnnounce.comments.map((el,i)=>
+{oneAnnounce&&oneAnnounce.comments.map((el,i)=>
 
         <div key={i} className='boxBorder'> 
         <div className="bg-white p-2">

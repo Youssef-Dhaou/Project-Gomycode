@@ -1,10 +1,11 @@
 
 import {Link, useNavigate } from "react-router-dom"
 import "./SignUp.css"
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 
 import {signupUser} from "../../Redux/actions/userActions"
 import { useState } from "react";
+import swal from 'sweetalert';
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -59,12 +60,15 @@ const handleSubmit =(event)=>{
     // passwordConfirmation: data.get("passwordConfirmation"),
 
     const [passwordShown, setPasswordShown] = useState(false);
+    const errors = useSelector(state=>state.userReducer.errors)
 
     const togglePassword = () => {
       // When the handler is invoked
       // inverse the boolean state of passwordShown
       setPasswordShown(!passwordShown);
     };
+
+
 
   return (
 

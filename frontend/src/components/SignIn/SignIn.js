@@ -1,22 +1,28 @@
-import React from 'react'
+
 import {Link, useNavigate }from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./SignIn.css"
 import { signinUser } from '../../Redux/actions/userActions';
 
+
 const SignIn = () =>{
+
+const currentUser = useSelector(state=>state.userReducer.currentUser)
 
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
+   
     const data = new FormData(event.currentTarget);
     // console.log({
     //   email: data.get("email"),
     //   password: data.get("password"),
     // });
+    
+    console.log(currentUser);
     dispatch(
       signinUser(
         {
@@ -44,7 +50,7 @@ const SignIn = () =>{
       </div>
       <div className="pass">Forgot password?</div>
       <div className="row button">
-        <input type="submit" defaultValue="Login"  />
+        <input type="submit" defaultValue="Login"/>
       </div>
       <div className="signup-link">Not a member? <Link to="/signup"> Signup now </Link></div>
     </form>

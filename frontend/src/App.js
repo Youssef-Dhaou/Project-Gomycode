@@ -7,7 +7,7 @@ import About from './pages/About';
 import SignUp from './components/SignUp/SignUp';
 import Header from './components/SideBar/Header';
 import Profile from './components/Profile/Profile';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getCurrentUser } from './Redux/actions/userActions';
 import EditProfile from './components/EditProfile/EditProfile';
@@ -18,12 +18,18 @@ import EditAnnounce from './components/EditAnnounce/EditAnnounce';
 import Details from './components/AnnounceDetails/Details';
 import PrivateRoute from './components/Privates/PrivateRoute';
 import UserList from './components/userList/UserList';
-import Spinner from './components/alerts/Spinner';
+import swal from 'sweetalert';
 
 
 
 function App() {
   const dispatch = useDispatch();
+  const errors = useSelector(state=>state.userReducer.errors)
+
+
+  setTimeout(() => {
+    errors && swal ("Oops" ,  errors.response.data.msg ,  "error" )
+   }, 1);
 
 useEffect(() => {
 dispatch(getAllAnnounces());
@@ -49,7 +55,6 @@ dispatch(getCurrentUser())
         <Route path='/editannounce/:id' element={<EditAnnounce/>}/>
         <Route path='/details/:id' element={<Details/>}/>
         <Route path='/contact' element={<Contact/>}/>
-        <Route path='/spinner' element={<Spinner/>}/>
         <Route path='/userlist' element={<div> <Header/> <UserList/> </div> }/>
 
       </Routes>

@@ -25,14 +25,14 @@ const initialState={
              //edit new announcement
              case UPDATE_ONE_ANNOUNCE_FAIL: return{...state, errors:payload}
                 
-             //edit new announcement
+             //delete announcement
              case DELETE_ANNOUNCE_FAIL: return {...state, errors: payload}
             
     //like and unlike announcement
     case UPDATE_LIKES:return{...state,Announces: state.Announces.map(el=>el._id==payload.id?{...el, likes:payload.likes}: el)}
     case POST_ERROR: return {...state, errors: payload}
 //ad comment case
-case ADD_COMMENT: return{...state.Announces, comments:payload} 
+case ADD_COMMENT: return{...state, oneAnnounce:{...state.oneAnnounce,comments:payload.comments}} 
 case REMOVE_COMMENT:
     return {
       ...state,
