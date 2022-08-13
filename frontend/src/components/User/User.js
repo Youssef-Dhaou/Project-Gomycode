@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
 import "./User.css"
 import { } from "react-icons/fa";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { bannedUser, deleteUser } from '../../Redux/actions/userActions';
 import { Link } from 'react-router-dom';
 import { FcCheckmark } from "react-icons/fc";
 import { IoMdClose } from "react-icons/io";
+import swal from 'sweetalert';
 const User = ({user}) => {
 
 
   const dispatch = useDispatch();
-const [bann, setBann] = useState(false)
+const [bann, setBann] = useState("")
 const [check, setCheck] = useState(user.isBanned)
 
- 
 
 
   return (
@@ -54,7 +54,7 @@ const [check, setCheck] = useState(user.isBanned)
   <button onClick={()=>dispatch(bannedUser(user._id, {isBanned:bann}))} type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i className="fa fa-edit" /> </button>
   <Link to="/profile"> <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i className="fa fa-eye" /> </button> </Link>
 </div>
-<input onClick={()=>{setBann(!bann); setCheck(!bann)}} name="isBanned"  style={{fontSize:"30px", marginTop:"1rem", marginLeft:"1rem"}} type="checkbox" id="vehicle1" checked={check} value={bann}/>
+<input onChange={()=>{setBann(!bann); setCheck(!bann)}} name="isBanned"  style={{fontSize:"30px", marginTop:"1rem", marginLeft:"1rem"}} type="checkbox" id="vehicle1" checked={check} value={bann}/>
 <span style={{ color: "blue"}}> IsBanned</span> 
 {user.isBanned? <span style={{display:"flex", color: 'red', background: "gray"}}> <IoMdClose/> <span>Banned</span></span>: <span style={{ marginLeft:"1rem", marginBottom:"10px"}}> <FcCheckmark/>  <span style={{color:"green"}}>avtive</span> </span>}
 </div> 

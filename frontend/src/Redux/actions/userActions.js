@@ -7,7 +7,7 @@ export const signupUser =  (user, navigate) => async (dispatch) =>{
 try {
 
     const response = await axios.post("http://localhost:5000/users/registerUser", user)
-    dispatch({type:SIGNUP_USER_SUCCESS, payload: response.data.newUser})
+    dispatch({type:SIGNUP_USER_SUCCESS, payload: response.data})
     navigate("/signin")
 } catch (error) {
     console.log(error)
@@ -23,7 +23,7 @@ export const signinUser = (user, navigate) => async (dispatch) => {
         user
       );
       dispatch({ type: SIGNIN_USER_SUCCESS, payload: response.data });
-      navigate("/profile");
+      navigate("/announcelist");
     } catch (error) {
       console.log(error);
       dispatch({ type: SIGNIN_USER_FAIL, payload: error });

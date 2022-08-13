@@ -33,7 +33,7 @@ const Announce = ({el, setQuery}) => {
       </div>
     </div>
 
-{localStorage.getItem("token")&&
+{localStorage.getItem("token")?
 <div className='btnIcon'>
   <div className='actions'> 
      <i id="iconB" className="fa-solid fa-trash-can trash" onClick={()=>dispatch(deleteAnnounce(el._id))}></i>
@@ -52,7 +52,7 @@ const Announce = ({el, setQuery}) => {
 <i  id="iconB"  className="fa-solid fa-thumbs-down" onClick={()=>dispatch(removeLikes(el._id))}></i>
 
 </div>
-</div>} 
+</div>: <Link to="/signin" style={{textDecoration:"none", float:"right", margin:"0px 20px 10px 0px"}}> see comments </Link>} 
 </div>   
 </div>
 

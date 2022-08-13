@@ -144,7 +144,7 @@ try {
             } catch (error) {
         
                 console.log(error)
-                res.status(400).send(error.message)
+                res.status(400).send({msg: "Check the box please"})
                 
             }
         })

@@ -47,7 +47,7 @@ const user = useSelector(state=>state.userReducer.currentUser)
         <div className="card-body">
           <div className="account-settings">
             <div className="user-profile">
-                <div className="signup-profile-pic__container">
+                <div className="signup-profile-pic-container">
        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" className="signup-profile-pic" alt="pic"/>
        <label htmlFor="image-upload" className="image-upload-label">
        

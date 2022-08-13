@@ -34,7 +34,7 @@ const Footer = () => {
       <div className="topic">Subscribe us</div>
       <form action="#">
         <input type="text" placeholder="Enter email address" />
-        <input type="submit" name defaultValue="Send" />
+        <input type="submit" defaultValue="Send" />
         <div className="media-icons">
           <a href="https://www.facebook.com/youssef.dhaou.10" target="_blank"><i className="fab fa-facebook-f" /></a>
           <a href="https://www.instagram.com/dhaou.youssef/?hl=fr" target="_blank"><i className="fab fa-instagram" /></a>

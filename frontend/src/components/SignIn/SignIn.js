@@ -22,7 +22,6 @@ const currentUser = useSelector(state=>state.userReducer.currentUser)
     //   password: data.get("password"),
     // });
     
-    console.log(currentUser);
     dispatch(
       signinUser(
         {

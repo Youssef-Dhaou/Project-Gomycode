@@ -3,6 +3,7 @@
     display: flex;
     align-items:  center;
     margin-left: 5rem;
+
    
 }
 .account-settings .user-profile {
@@ -76,7 +77,7 @@
     width: 200px;
     height: 200px;
     position: absolute;
-    right: 19%;
+    right: 21%;
     
 
 }
@@ -87,7 +88,33 @@
     height: 25px;
     color:green;
     bottom: -420%;
-    left:78%;
+    left:75%;
     cursor: pointer;
     
 }
+
+@media(max-width: 1150px){
+    
+    .card-body{
+      height: 300px;
+       
+    }
+  }
+
+  
+@media(max-width: 1240px){
+    
+    .signup-profile-pic{
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        right: 30%;
+    }
+
+    .icon{
+        position: absolute;
+        left:65%;
+     
+        
+    }
+  }
