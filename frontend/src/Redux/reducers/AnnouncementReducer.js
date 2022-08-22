@@ -1,4 +1,4 @@
-import { ADD_ANNOUNCE_FAIL, ADD_COMMENT, DELETE_ANNOUNCE_FAIL, FILTER_ANNOUNCE_FAIL, FILTER_ANNOUNCE_LOADING, FILTER_ANNOUNCE_SUCCESS, GET_ANNOUNCE_FAIL, GET_ANNOUNCE_LOADING, GET_ANNOUNCE_SUCCESS, GET_ONE_ANNOUNCE_FAIL, GET_ONE_ANNOUNCE_SUCCESS, POST_ERROR, REMOVE_COMMENT, UPDATE_LIKES, UPDATE_ONE_ANNOUNCE_FAIL} from "../contants/AnnounecementTypes";
+import { ADD_ANNOUNCE_FAIL, ADD_COMMENT, DELETE_ANNOUNCE_FAIL, DELETE_ONE_ANNOUNCE_FAIL, FILTER_ANNOUNCE_FAIL, FILTER_ANNOUNCE_LOADING, FILTER_ANNOUNCE_SUCCESS, GET_ANNOUNCE_FAIL, GET_ANNOUNCE_LOADING, GET_ANNOUNCE_SUCCESS, GET_ONE_ANNOUNCE_FAIL, GET_ONE_ANNOUNCE_SUCCESS, POST_ERROR, REMOVE_COMMENT, UPDATE_LIKES, UPDATE_ONE_ANNOUNCE_FAIL} from "../contants/AnnounecementTypes";
 
 const initialState={
     loading: false,
@@ -28,6 +28,9 @@ const initialState={
              //delete announcement
              case DELETE_ANNOUNCE_FAIL: return {...state, errors: payload}
             
+             //delete oneAnnouncement
+             case DELETE_ONE_ANNOUNCE_FAIL: return {...state, errors: payload}
+
     //like and unlike announcement
     case UPDATE_LIKES:return{...state,Announces: state.Announces.map(el=>el._id==payload.id?{...el, likes:payload.likes}: el)}
     case POST_ERROR: return {...state, errors: payload}

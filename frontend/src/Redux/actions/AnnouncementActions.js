@@ -1,5 +1,5 @@
 import axios from "axios"
-import {ADD_ANNOUNCE_FAIL, ADD_ANNOUNCE_SUCCESS, ADD_COMMENT, DELETE_ANNOUNCE_FAIL, DELETE_ANNOUNCE_SUCCESS, GET_ANNOUNCE_FAIL, GET_ANNOUNCE_LOADING, GET_ANNOUNCE_SUCCESS, GET_ONE_ANNOUNCE_FAIL, GET_ONE_ANNOUNCE_SUCCESS, LIKE_ANNOUNCE_FAIL, LIKE_ANNOUNCE_SUCCESS, POST_ERROR, REMOVE_COMMENT, UNLIKE_ANNOUNCE_FAIL, UNLIKE_ANNOUNCE_SUCCESS, UPDATE_LIKES, UPDATE_ONE_ANNOUNCE_FAIL, UPDATE_ONE_ANNOUNCE_SUCCESS} from "../contants/AnnounecementTypes"
+import {ADD_ANNOUNCE_FAIL, ADD_ANNOUNCE_SUCCESS, ADD_COMMENT, DELETE_ANNOUNCE_FAIL, DELETE_ANNOUNCE_SUCCESS, DELETE_ONE_ANNOUNCE_FAIL, DELETE_ONE_ANNOUNCE_SUCCESS, GET_ANNOUNCE_FAIL, GET_ANNOUNCE_LOADING, GET_ANNOUNCE_SUCCESS, GET_ONE_ANNOUNCE_FAIL, GET_ONE_ANNOUNCE_SUCCESS, LIKE_ANNOUNCE_FAIL, LIKE_ANNOUNCE_SUCCESS, POST_ERROR, REMOVE_COMMENT, UNLIKE_ANNOUNCE_FAIL, UNLIKE_ANNOUNCE_SUCCESS, UPDATE_LIKES, UPDATE_ONE_ANNOUNCE_FAIL, UPDATE_ONE_ANNOUNCE_SUCCESS} from "../contants/AnnounecementTypes"
 
 
 export const getAllAnnounces = (query)=> async dispatch=>{
@@ -59,8 +59,9 @@ export const addAnnounce = (newAnnounce, navigate)=> async dispatch=>{
   };
 
   export const deleteAnnounce = (id)=> async dispatch=>{
+    const token = localStorage.getItem('token')
     try {
-         const response=await axios.delete(`http://localhost:5000/announcements/${id}`)
+         const response=await axios.delete(`http://localhost:5000/announcements/${id}`, { headers: { Authorization: `Bearer ${token}` } })
          dispatch({type:DELETE_ANNOUNCE_SUCCESS})
          dispatch(getAllAnnounces())
         } catch (error) {
@@ -129,3 +130,19 @@ export const deleteComment = (AnnounceId, commentId) => async dispatch => {
     });
   }
 };
+
+
+
+//remove  oneAnnouncement
+export const deleteOneAnnounce = (id)=> async dispatch=>{
+  const token = localStorage.getItem('token')
+  try {
+       const response=await axios.delete(`http://localhost:5000/announcements/delete/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+       dispatch({type:DELETE_ONE_ANNOUNCE_SUCCESS})
+       dispatch(getAllAnnounces())
+      } catch (error) {
+          console.log(error);
+          dispatch({type:DELETE_ONE_ANNOUNCE_FAIL , payload:error})
+       }
+
+}

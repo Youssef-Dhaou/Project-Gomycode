@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import "./User.css"
 import { } from "react-icons/fa";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { bannedUser, deleteUser } from '../../Redux/actions/userActions';
 import { Link } from 'react-router-dom';
 import { FcCheckmark } from "react-icons/fc";
 import { IoMdClose } from "react-icons/io";
-import swal from 'sweetalert';
+
 const User = ({user}) => {
 
 

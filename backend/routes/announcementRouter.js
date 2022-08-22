@@ -4,7 +4,8 @@ const isAuth = require("../middlewares/isAuth");
 const { deleteOne } = require("../models/Announcement");
 const Announcement = require("../models/Announcement");
 const upload = require("../utils/multer");
-const User = require("../models/User")
+const User = require("../models/User");
+const isAdmin = require("../middlewares/isAdmin");
 
 
 const router = express.Router()
@@ -43,7 +44,7 @@ router.get("/", async (req, res)=>{
 })
 
 
-router.delete("/:id", async(req, res)=>{
+router.delete("/:id",isAuth(), isAdmin, async(req, res)=>{
     try {
         const announceDeleted = await Announcement.deleteOne({_id : req.params.id})
         if(announceDeleted.deletedCount){return res.send("Announce deleted")} 
@@ -55,6 +56,23 @@ router.delete("/:id", async(req, res)=>{
 
     }
 })
+
+
+router.delete("/delete/:id",isAuth(), async(req, res)=>{
+    try {
+        const oneAnnounce = await Announcement.findOne({_id:req.params.id})
+        if(oneAnnounce.user.toString() != req.user._id) { return res.status(400).send("user unauthorized")} 
+        
+        const deleted = await Announcement.deleteOne({_id: req.params.id})
+        res.send("announce deleted")
+
+    } catch (error) {
+        console.log(error)
+        res.status(400).send(error.message)
+
+    }
+})
+
 
 router.put("/:id", upload("announcement").single("file"), async (req, res)=>{
     
@@ -79,7 +97,7 @@ router.put("/:id", upload("announcement").single("file"), async (req, res)=>{
 
 
 router.get("/oneAnnounce/:id",async(req,res)=>{
-    try {
+    try { 
        const oneAnnounce=await Announcement.findOne({_id:req.params.id}).populate("user",["fullName", "image"]) 
        res.send({oneAnnounce})  
       } catch (error) {

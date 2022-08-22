@@ -32,6 +32,7 @@ justify-content: center;
     flex: 1 1 auto;
     min-height: 1px;
     padding: 1rem;
+    position: relative;
 }
 
 .gutters-sm {
@@ -145,3 +146,19 @@ justify-content: center;
       0%   {text-shadow: 0 0 6px #FFF;}
       100%  {text-shadow: 0 0 0px #000;}
   }
+
+  @media(max-width: 1151px){
+    .bnt1{
+        float: right;
+        position: absolute;
+        top:80%;
+        right:10%
+  }}
+
+  
+  @media(max-width: 973px){
+    .bnt1{
+
+        top:84%;
+        right:10%
+  }}

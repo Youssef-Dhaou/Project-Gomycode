@@ -101,7 +101,7 @@ const Details = () => {
         </div> </div> )}
         <div className="bg-light p-2">
           <form onSubmit={handleComment}>
-          <div className="d-flex flex-row align-items-start"><img className="round" src={currentUser.image} width={40} alt=""/><textarea name="text" className="form-control ml-1 shadow-none textarea" defaultValue={""} onChange={(e)=>setText(e.target.value)}/></div>
+          <div className="d-flex flex-row align-items-start"><img className="round" src={currentUser.image} width={40} alt=""/><textarea name="text" className="form-control ml-1 shadow-none textarea" value={text} onChange={(e)=>setText(e.target.value)}/></div>
           <div className="mt-2 text-right"><button className="btn btn-primary btn-sm shadow-none" type="submit" >Post comment</button> <Link to="/announcelist"> <button className="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></Link></div>
           </form> 
         </div>

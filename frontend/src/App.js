@@ -9,7 +9,7 @@ import Header from './components/SideBar/Header';
 import Profile from './components/Profile/Profile';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getCurrentUser } from './Redux/actions/userActions';
+import {getCurrentUser } from './Redux/actions/userActions';
 import EditProfile from './components/EditProfile/EditProfile';
 import { getAllAnnounces } from './Redux/actions/AnnouncementActions';
 import AnnounceList from './components/AnnounceList/AnnounceList';
@@ -19,12 +19,15 @@ import Details from './components/AnnounceDetails/Details';
 import PrivateRoute from './components/Privates/PrivateRoute';
 import UserList from './components/userList/UserList';
 import swal from 'sweetalert';
+import AddPrivate from './components/Privates/AddPrivate';
+import ListUserPrivate from './components/Privates/ListUserPrivate';
 
 
 
 function App() {
   const dispatch = useDispatch();
   const errors = useSelector(state=>state.userReducer.errors)
+  const user = useSelector(state=>state.userReducer.currentUser)
 
 
   setTimeout(() => {
@@ -34,7 +37,7 @@ function App() {
 useEffect(() => {
 dispatch(getAllAnnounces());
 dispatch(getCurrentUser())
-}, [])
+}, [dispatch])
 
 
   return (
@@ -51,11 +54,11 @@ dispatch(getCurrentUser())
         <Route path='/profile' element={<div> <Header/> <PrivateRoute> <Profile/> </PrivateRoute> </div>}/>
         <Route path='/editprofile' element={<EditProfile/> }/>
         <Route path='/announcelist' element={<div> <Header/> <AnnounceList/> </div> }/>
-        <Route path='/addannounce' element={<AddAnnounce/>}/>
+        <Route path='/addannounce' element={<AddPrivate>  <AddAnnounce/> </AddPrivate> }/>
         <Route path='/editannounce/:id' element={<EditAnnounce/>}/>
         <Route path='/details/:id' element={<Details/>}/>
         <Route path='/contact' element={<Contact/>}/>
-        <Route path='/userlist' element={<div> <Header/> <UserList/> </div> }/>
+        <Route path='/userlist' element={<div>  <ListUserPrivate user={user}> <UserList/> </ListUserPrivate>   </div> }/>
 
       </Routes>
 </div>

@@ -82,7 +82,7 @@ const Profile = () => {
             <hr />
             <div className="row">
               <div className="col-sm-12">
-               <Link to="/editprofile">  <button className="btn btn-info">Edit</button></Link> 
+               <Link to="/editprofile">  <button className="btn btn-info bnt1">Edit</button></Link> 
               </div>
             </div>
           </div>

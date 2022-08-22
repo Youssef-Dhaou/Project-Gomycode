@@ -60,13 +60,14 @@ const handleSubmit =(event)=>{
     // passwordConfirmation: data.get("passwordConfirmation"),
 
     const [passwordShown, setPasswordShown] = useState(false);
-    const errors = useSelector(state=>state.userReducer.errors)
 
     const togglePassword = () => {
       // When the handler is invoked
       // inverse the boolean state of passwordShown
       setPasswordShown(!passwordShown);
     };
+
+
 
 
 

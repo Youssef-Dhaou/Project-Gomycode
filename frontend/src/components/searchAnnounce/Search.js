@@ -8,9 +8,9 @@ const Search = ({handleSubmit}) => {
 
 
   return (
-    <div>
+    <div >
 <form className="searchform cf" >
-  <input type="text" placeholder="Is it me you’re looking for?" onChange={(e)=>handleSubmit(e.target.value)} />
+  <input className='searchBtn' type="text" placeholder="Is it me you’re looking for?" onChange={(e)=>handleSubmit(e.target.value)} />
   <button type="submit">Search</button>
 </form>
 

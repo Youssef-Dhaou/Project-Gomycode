@@ -61,3 +61,11 @@
       .searchform button:hover {
           opacity:.9;
       }
+
+      
+@media (max-width:570px) 
+{
+  .searchform input{
+              width: 250px;
+        }        
+}

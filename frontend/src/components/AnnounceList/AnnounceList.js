@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./AnnounceList.css";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Announce from "../Announce/Announce";
 import Search from "../searchAnnounce/Search";
 import Footer from "../footer/Footer";
 import Spinner from "../alerts/Spinner";
+import { getAllAnnounces } from "../../Redux/actions/AnnouncementActions";
 
 
 const AnnounceList = () => {
+
+  
+useEffect(() => {
+  dispatch(getAllAnnounces());
+  }, [])
+
+  const dispatch= useDispatch()
+
   const Announces = useSelector((state) => state.AnnounceReducer.Announces);
 
   const loading = useSelector((state) => state.AnnounceReducer.loading);

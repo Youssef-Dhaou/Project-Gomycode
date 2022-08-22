@@ -1,12 +1,13 @@
 
 import "./Announce.css"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addLikes, deleteAnnounce, removeLikes } from '../../Redux/actions/AnnouncementActions';
+import { addLikes, deleteAnnounce, deleteOneAnnounce, removeLikes } from '../../Redux/actions/AnnouncementActions';
 const Announce = ({el, setQuery}) => {
   const dispatch = useDispatch()
 
 
+const currentUser = useSelector(state=>state.userReducer.currentUser)
 
   return (
 
@@ -36,12 +37,15 @@ const Announce = ({el, setQuery}) => {
 {localStorage.getItem("token")?
 <div className='btnIcon'>
   <div className='actions'> 
-     <i id="iconB" className="fa-solid fa-trash-can trash" onClick={()=>dispatch(deleteAnnounce(el._id))}></i>
- <Link to={`/editannounce/${el._id}`}><i id="iconB" className="fa-solid fa-pen-to-square"></i></Link>
+  {currentUser.role==="admin"?
+     <i id="iconB" className="fa-solid fa-trash-can trash" onClick={()=>dispatch(deleteAnnounce(el._id))}></i>:
+    currentUser._id == el.user._id? <i id="iconB" className="fa-solid fa-trash-can trash" onClick={()=>dispatch(deleteOneAnnounce(el._id))}></i>: null}
+{currentUser._id == el.user._id?<Link to={`/editannounce/${el._id}`}><i id="iconB" className="fa-solid fa-pen-to-square"></i></Link>: currentUser.role=="admin"?
+<Link to={`/editannounce/${el._id}`}><i id="iconB" className="fa-solid fa-pen-to-square"></i></Link>: null}
  <Link to ={`/addannounce`}> <i id="iconB" className="fa-solid fa-circle-plus"></i></Link>
  </div>
  <div className='reaction'>
-  <div style={{display:"flex",gap:10}}> 
+  <div style={{display:"flex",gap:10}}>   
 <Link to={`/details/${el._id}`}> <i  id="iconB" className="fa-solid fa-comment"></i></Link>
 <span className='comment-count'>{el.comments.length}</span>
 </div>

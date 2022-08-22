@@ -59,3 +59,8 @@
     top: -10px;
     left: -10px;
   } 
+
+  @media(max-width: 500px){
+    .headUser{
+      display: none;
+  }}
