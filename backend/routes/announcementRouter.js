@@ -80,10 +80,13 @@ router.put("/:id", upload("announcement").single("file"), async (req, res)=>{
         console.log(req.file);
         const { file } = req;
     try {
-        
+        if(file){
         const image = `${url}/${file.path}`;
-
-        const result = await Announcement.updateOne({ _id: req.params.id}, {$set:{...req.body, image}});
+       
+      result = await Announcement.updateOne({ _id: req.params.id}, {$set:{...req.body, image}})}
+      else{
+        result = await Announcement.updateOne({ _id: req.params.id}, {$set:{...req.body}})}
+       
         const UpdatedAnnouce = await Announcement.findOne({ _id: req.params.id});
         if(result.modifiedCount){ return res.send({msg: "Announce upadated", UpdatedAnnouce})}
         res.status(400).send({msg:"already updated"})

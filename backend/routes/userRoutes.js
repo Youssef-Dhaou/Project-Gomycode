@@ -120,8 +120,12 @@ try {
     
 
         try {
+            if(file){
            const image = `${url}/${file.path}`;
-            const result = await User.updateOne({_id}, {$set:{...req.body, image}});
+           result = await User.updateOne({_id}, {$set:{...req.body, image}})}
+           else{
+            result = await User.updateOne({_id}, {$set:{...req.body}})
+           }
             const UpdatedUser = await User.findOne({_id});
             return res.send({msg: "User upadated", UpdatedUser})
         } catch (error) {

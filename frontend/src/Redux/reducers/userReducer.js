@@ -15,7 +15,10 @@ switch (type) {
     case SIGNUP_USER_FAIL: return {...state, errors: payload}
    //signIn case
    case SIGNIN_USER_SUCCESS:
-    localStorage.setItem("token", payload.token);
+    localStorage.setItem("token", payload.token)
+    let user_data_str = JSON.stringify(payload.user);
+    localStorage.setItem("user",user_data_str)
+
     return {...state,AllUsers:[], currentUser: payload.user };
   case SIGNIN_USER_FAIL:
     return { ...state, errors: payload };

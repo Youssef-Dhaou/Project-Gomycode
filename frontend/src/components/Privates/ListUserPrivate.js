@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 const ListUserPrivate = ({children, user}) => {
   return (
     <div>
-    {localStorage.getItem("token")? children : <Navigate to="/announcelist"/>}
+    {localStorage.getItem("token") && user.role=="admin"? children : <Navigate to="/announcelist"/>}
 </div>
 
   )
