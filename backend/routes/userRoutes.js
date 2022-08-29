@@ -32,7 +32,6 @@ router.post("/registerUser",registerRules(),validator, isVolunteer,async (req, r
         const newUser = new User({...req.body})
         const hashedPassword = await bcrypt.hash(password, 10)
         const hashedConfirmation  = await bcrypt.hash(password, 10)
-        console.log(hashedPassword)
         newUser.password= hashedPassword;
         newUser.passwordConfirmation= hashedConfirmation;
         // newUser.image = `${url}/${file.path}`;
